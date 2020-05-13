@@ -9,6 +9,9 @@
           .carousel-indicators .active {
 			  background-color: blue;
             }
+          h4 {
+            margin-left:200px;
+          }
 			
 			.col-md-3 img{
 				
@@ -37,7 +40,14 @@
 				width: 255px;
 				height: 255px;
       }
-      
+
+      .carousel-inner img {
+        width : 400px;
+        height :320px;
+      }
+      .card-img-top {
+        height:200px;
+      }
       .carousel-control-next, .carousel-control-prev {
 
         top : auto;
@@ -47,64 +57,103 @@
         background-color: blue;
         margin-top: 222px;
     }
+    
 
 			{% endblock %}
 			
-			{% block body %}
+{% block body %}
 {% load static %}
-<div class="container">
-
-    {% for nSlides, lenth, product in list %}
-    <h1>{{product.0.category}}</h1>
-      <div class="row">
-<div id="demo{{forloop.counter}}" class="carousel slide my-3" data-ride="carousel">
-    <ul class="carousel-indicators">
-       {% for i in lenth %}
-      <li data-target="#demo{{forloop.parentloop.counter}}" data-slide-to="{{i}}" ></li>
-      {% endfor %}
-    </ul>
-
-    <!--Slideshow starts here -->
-    <div class="col container carousel-inner no-padding">
-
-      <div class="carousel-item active">
-        
-
-
-        {% for i in product %}
-        <div class="col-xs-3 col-sm-3 col-md-3">
-          <div class="card" style="width: 18rem;">
-            <img src='/media/{{i.image}}' class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">{{i.product_name}}</h5>
-              <p class="card-text">{{i.desc}}</p>
-              <button href="#" class="btn btn-primary cart" id = "pr{{i.id}}">Add To Cart</button>
-            </div>
-          </div>
+<div class = "container mt-5">
+<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+    <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner mb-4">
+    <div class="carousel-item active">
+      <img src='/media/{{slides.0.image}}' class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src='/media/{{slides.1.image}}' class="d-block w-100" alt="...">
+      
+    </div>
+    <div class="carousel-item">
+      <img src='/media/{{slides.2.image}}' class="d-block w-100" alt="...">
+    </div>
+  </div>
+  
+  
+</div>
+</div>
+  <br><br><br>
+  <h4><b>Food Grains</b></h5>
+    <div class = "container">
+      <div class="card-deck" style = "width: 40rem;">
+    {% for i in foodgrain %}
+    
+      <div class="card">
+        <img class="card-img-top" src="/media/{{i.image}}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{i.product_name}}</h5>
         </div>
-        {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
-      </div><div class="carousel-item">
-        {% endif %}
-
-        {% endfor %}
+      </div>
+    {% endfor %}
+    </div>
     </div>
 
+  
+  <br><br><br>
 
-
-</div>
-</div>
-    <!-- left and right controls for the slide -->
-    <a class="carousel-control-prev" href="#demo{{forloop.counter}}" data-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-    </a>
-    <a class="carousel-control-next" href="#demo{{forloop.counter}}" data-slide="next">
-        <span class="carousel-control-next-icon"></span>
-    </a>
+  <h4><b>Dals and Pulses</b></h4>
+  <div class = "container">
+    <div class="card-deck" style = "width: 40rem;">
+  {% for i in dalpulses %}
+  
+    <div class="card">
+      <img class="card-img-top" src="/media/{{i.image}}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">{{i.product_name}}</h5>
+      </div>
+    </div>
+  {% endfor %}
   </div>
-{% endfor %}
-{% endblock %}
+  </div>
 
-</div>
+  <br><br><br>
+
+  <h4><b>Oil, Ghee and Masalas</b></h4>
+  <div class = "container">
+    <div class="card-deck" style = "width: 70rem;">
+  {% for i in oilgheemasala %}
+  
+    <div class="card">
+      <img class="card-img-top" src="/media/{{i.image}}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">{{i.product_name}}</h5>
+      </div>
+    </div>
+  {% endfor %}
+  </div>
+  </div>
+
+  <br><br><br>
+
+  <h4><b>Salt, Sugar and Jaggery</b></h4>
+  <div class = "container">
+    <div class="card-deck" style = "width: 70rem;">
+  {% for i in saltsugjag %}
+  
+    <div class="card">
+      <img class="card-img-top" src="/media/{{i.image}}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">{{i.product_name}}</h5>
+      </div>
+    </div>
+  {% endfor %}
+  </div>
+  </div>
+  {% endblock %}
 {% block js %} 
 <script>
 
