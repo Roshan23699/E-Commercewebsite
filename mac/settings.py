@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'users.apps.UsersConfig',
     'shop.apps.ShopConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -122,3 +123,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+LOGIN_REDIRECT_URL = 'shopHome'
+LOGIN_URL = 'login'
