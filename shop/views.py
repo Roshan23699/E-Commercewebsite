@@ -1,26 +1,62 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Product
+from .models import SlideShow
 from math import ceil
+from .models import Product
+
 # Create your views here.
 
 
 def index(request):
-	# product = Product.objects.all()
+	#product = Product.objects.all()
 	allProds = []
 	catx = Product.objects.values('category')
 	cats = {item['category'] for item in catx}
 	for cat in cats:
 		product = Product.objects.filter(category=cat)
-		n = len(product)
-		nSlides = n // 4 + ceil((n / 4) - (n // 4))
-		lenth = range(1, nSlides + 1)
-		params = [nSlides, lenth, product]
-		allProds.append([nSlides, lenth , product])
+		allProds.append([cat, product])
 
 	# allProds = [params, params, params]
-	params = {'list' : allProds}
+	params = {'list' : allProds, 'slides': SlideShow.objects.all()}
 	return render(request, 'shop/index.html', params)
+
+def grocery(request):
+	#product = Product.objects.all()
+	allProds = []
+	catx = Product.objects.values('category')
+	cats = {item['category'] for item in catx}
+	for cat in cats:
+		product = Product.objects.filter(category=cat)
+		allProds.append([cat, product])
+
+	# allProds = [params, params, params]
+	params = {'list' : allProds, 'slides': SlideShow.objects.all()}
+	return render(request, 'shop/grocery.html', params)
+
+
+def fruits(request):
+	#product = Product.objects.all()
+	allProds = []
+	catx = Product.objects.values('category')
+	cats = {item['category'] for item in catx}
+	for cat in cats:
+		if cat == 'Fruit':
+			product = Product.objects.filter(category=cat)
+			allProds.append([cat, product])
+			params = {'list' : allProds, 'slides': SlideShow.objects.all()}
+	return render(request, 'shop/fruits.html', params)
+
+def vegetables(request):
+	#product = Product.objects.all()
+	allProds = []
+	catx = Product.objects.values('category')
+	cats = {item['category'] for item in catx}
+	for cat in cats:
+		if cat == 'vegetables':
+			product = Product.objects.filter(category=cat)
+			allProds.append([cat, product])
+			params = {'list' : allProds, 'slides': SlideShow.objects.all()}
+	return render(request, 'shop/vegetables.html', params)
 
 def about(request):
 	return render(request, 'shop/about.html')
@@ -41,4 +77,3 @@ def checkout(request):
 	return HttpResponse('we are at checkout') 
 
 
-	

@@ -1,0 +1,14 @@
+{% extends 'shop/basic.html' %}
+{% block body %}
+
+<div class="content-section" style="width: 50%; border: 1px solid black; padding: 20px; padding-top: 5px; margin-left: 25%; margin-right: 25%; margin-top: 50px;">
+
+        <div class="border-top pt-3">
+            <h1>You have been logged out</h1>
+            <small class="text-muted">
+                Sign in Again??<a class="ml-2" href = "{% url 'login' %}">Sign In</a>
+            </small>
+        </div>
+    </div>
+
+{% endblock %}
