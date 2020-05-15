@@ -1,0 +1,39 @@
+{% extends 'shop/basic.html' %}
+{% block css %}
+.card-img-top {
+    height:200px;
+  }
+  h4 {
+    margin-left:200px;
+  }
+  {% endblock %}
+ {% block body %}
+
+    
+ {% for cat, product in list %}
+ {% if cat != 'Foodgrain' and cat != 'DalsandPulses' and cat != 'OilsGheeandMasala' and cat != 'SaltSugarandJaggery' and cat != 'Fruit' and cat != 'vegetables'%}
+ <h4><b>{{cat}}</b></h5>
+<div class = "container">
+<div class="card-deck" style = "width: 70rem;">
+{% for i in product %}
+<div class="card">
+ 
+<img class="card-img-top" src="/media/{{i.image}}" alt="Card image cap">
+<div class="card-body">
+ <h5 class="card-title">{{i.product_name}}</h5>
+ 
+ 
+</div>
+</div>
+{% if forloop.counter|divisibleby:3 and forloop.counter > 0 and not forloop.last %}
+</div><div class="card-deck" style = "width: 70rem;">
+{% endif %}
+{% endfor %}
+<br><br><br>
+</div>
+
+</div>
+{% endif %}
+{% endfor %}
+
+{% endblock %}

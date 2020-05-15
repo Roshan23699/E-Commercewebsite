@@ -3,32 +3,60 @@ from django.http import HttpResponse
 from .models import SlideShow
 from math import ceil
 from .models import Product
-from .models import SlideShow
-from .models import FoodGrain
-from .models import SaltSugarandJaggery
-from .models import OilsGheeandMasala
-from .models import DalandPulses
-from .models import Fruit
-from .models import Vegetable
+
 # Create your views here.
 
 
 def index(request):
-	# product = Product.objects.all()
+	#product = Product.objects.all()
 	allProds = []
-	"""catx = Product.objects.values('category')
+	catx = Product.objects.values('category')
 	cats = {item['category'] for item in catx}
 	for cat in cats:
 		product = Product.objects.filter(category=cat)
-		n = len(product)
-		nSlides = n // 4 + ceil((n / 4) - (n // 4))
-		lenth = range(1, nSlides + 1)
-		params = [nSlides, lenth, product]
-		allProds.append([nSlides, lenth , product])"""
+		allProds.append([cat, product])
 
 	# allProds = [params, params, params]
-	params = {'list' : allProds, 'slides': SlideShow.objects.all(), 'foodgrain' : FoodGrain.objects.all(), 'saltsugjag': SaltSugarandJaggery.objects.all(), 'oilgheemasala':OilsGheeandMasala.objects.all(), 'dalpulses': DalandPulses.objects.all()}
+	params = {'list' : allProds, 'slides': SlideShow.objects.all()}
 	return render(request, 'shop/index.html', params)
+
+def grocery(request):
+	#product = Product.objects.all()
+	allProds = []
+	catx = Product.objects.values('category')
+	cats = {item['category'] for item in catx}
+	for cat in cats:
+		product = Product.objects.filter(category=cat)
+		allProds.append([cat, product])
+
+	# allProds = [params, params, params]
+	params = {'list' : allProds, 'slides': SlideShow.objects.all()}
+	return render(request, 'shop/grocery.html', params)
+
+
+def fruits(request):
+	#product = Product.objects.all()
+	allProds = []
+	catx = Product.objects.values('category')
+	cats = {item['category'] for item in catx}
+	for cat in cats:
+		if cat == 'Fruit':
+			product = Product.objects.filter(category=cat)
+			allProds.append([cat, product])
+			params = {'list' : allProds, 'slides': SlideShow.objects.all()}
+	return render(request, 'shop/fruits.html', params)
+
+def vegetables(request):
+	#product = Product.objects.all()
+	allProds = []
+	catx = Product.objects.values('category')
+	cats = {item['category'] for item in catx}
+	for cat in cats:
+		if cat == 'vegetables':
+			product = Product.objects.filter(category=cat)
+			allProds.append([cat, product])
+			params = {'list' : allProds, 'slides': SlideShow.objects.all()}
+	return render(request, 'shop/vegetables.html', params)
 
 def about(request):
 	return render(request, 'shop/about.html')
