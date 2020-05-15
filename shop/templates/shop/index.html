@@ -91,7 +91,7 @@
   
     {% for cat, product in list %}
           {% if cat == 'Foodgrain' or cat == 'DalsandPulses' or cat == 'OilsGheeandMasala' or cat == 'SaltSugarandJaggery' %}
-          <h4><b>{{cat}}</b></h5>
+          <h5><b>{{cat}}</b></h5>
     <div class = "container">
       <div class="card-deck" style = "width: 70rem;">
         {% for i in product %}
@@ -100,6 +100,8 @@
         <img class="card-img-top" src="/media/{{i.image}}" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title">{{i.product_name}}</h5>
+            <p class="card-text">Price - ₹ {{i.price}}/kg</p>
+    <a href="#" class="btn btn-primary">Add to Cart</a>
           
         </div>
       </div>
