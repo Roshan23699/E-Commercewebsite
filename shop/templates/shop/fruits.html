@@ -22,7 +22,7 @@
 <div class="card-body">
  <h5 class="card-title">{{i.product_name}}</h5>
     <p class="card-text">Price - ₹ {{i.price}}/kg</p>
-    <a href="#" class="btn btn-primary">Add to Cart</a>
+    <a href="{% url 'cart' idz=i.id typer='add' %}" class="btn btn-primary">Add to Cart</a>
  
  
 </div>

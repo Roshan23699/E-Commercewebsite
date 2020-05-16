@@ -14,6 +14,19 @@ class Profile(models.Model):
         return f'{self.user.username} Profile'
 
 
+class Cart(models.Model):
+    product_id = models.IntegerField(default=0)
+    user = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name='scores',)
+    category = models.CharField(max_length=300, default='')
+    subcategory = models.CharField(max_length=300, default='')
+    price = models.IntegerField(default=0)
+    image = models.ImageField(upload_to='shop/images', default='')
+    product_name = models.CharField(max_length=30)
+
+
 def create_profile(sender, **kwargs):
     if kwargs['created']:
         user_profile = Profile.objects.create(user=kwargs['instance'])
