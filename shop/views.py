@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from .models import SlideShow
 from math import ceil
 from .models import Product
-
+import re
 # Create your views here.
 
 
@@ -23,6 +23,7 @@ def index(request):
 def grocery(request):
 	#product = Product.objects.all()
 	allProds = []
+	print("HI I am Manish\n\n\n\n\n\n\n\n\n\n\n\n")
 	catx = Product.objects.values('category')
 	cats = {item['category'] for item in catx}
 	for cat in cats:
@@ -57,6 +58,18 @@ def vegetables(request):
 			allProds.append([cat, product])
 			params = {'list' : allProds, 'slides': SlideShow.objects.all()}
 	return render(request, 'shop/vegetables.html', params)
+
+def search_results(request):
+	search = request.GET.get('Search', 'default')
+	products = Product.objects.all()
+	a = []
+
+	for i in products:
+		if re.search(search, i.product_name, re.IGNORECASE):
+			a.append(i)
+	 
+	params = {'list': a}
+	return render(request, 'shop/search.html', params)
 
 def about(request):
 	return render(request, 'shop/about.html')

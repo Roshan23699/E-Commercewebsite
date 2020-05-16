@@ -11,30 +11,29 @@
 
     
  {% for cat, product in list %}
- {% if cat != 'Foodgrain' and cat != 'DalsandPulses' and cat != 'OilsGheeandMasala' and cat != 'SaltSugarandJaggery' and cat != 'Fruit' and cat != 'vegetables'%}
- <h5><b>{{cat}}</b></h5>
-<div class = "container">
-<div class="card-deck" style = "width: 70rem;">
-{% for i in product %}
-<div class="card">
- 
-<img class="card-img-top" src="/media/{{i.image}}" alt="Card image cap">
-<div class="card-body">
- <h5 class="card-title">{{i.product_name}}</h5>
-     <p class="card-text">Price - ₹ {{i.price}}/kg</p>
-    <a href="{% url 'cart' idz=i.id typer='add' %}" class="btn btn-primary">Add to Cart</a>
- 
- 
-</div>
-</div>
-{% if forloop.counter|divisibleby:3 and forloop.counter > 0 and not forloop.last %}
-</div><div class="card-deck" style = "width: 70rem;">
-{% endif %}
-{% endfor %}
-<br><br><br>
-</div>
-
-</div>
+ {% if cat != 'Food Grains' and cat != 'Dals and Pulses' and cat != 'Oils, Ghee and Masalas' and cat != 'Salt, Sugar and Jaggery' and cat != 'Fruit' and cat != 'vegetables'%}
+ <h4><b>{{cat}}</b></h4>
+ <div class = "container mt-4">
+ <div class="row">
+     {% for i in product %}
+     <div class="col-sm-4">
+         
+         <div class="card-group" >
+         
+         <img class="card-img-top" src="/media/{{i.image}}" alt="Card image cap">
+         <div class="card-body">
+             <h5 class="card-title">{{i.product_name}}</h5>
+             <p class="card-text">Price - ₹ {{i.price}}/kg</p>
+             <a href="{% url 'cart' idz=i.id typer='add' %}" class="btn btn-primary">Add to Cart</a>
+         </div>
+       </div>
+     </div>
+     {% if forloop.counter|divisibleby:3 and forloop.counter > 0 and not forloop.last %}
+         </div><div class = "row">
+     {% endif %}
+ {% endfor %}
+         </div>
+     </div>
 {% endif %}
 {% endfor %}
 

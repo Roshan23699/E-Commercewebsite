@@ -14,7 +14,11 @@
 	<title>{% block title %}MyAwesomeCart, Home{% endblock %}</title>
 	<style>{% block css %}{% endblock %}</style>
 </head>
-
+<style>
+	body {
+	background-color : Azure;
+	}
+</style>
 <body>
 	{% load static %}
 	<nav class="navbar navbar-expand-lg navbar-blue bg-dark">
@@ -33,7 +37,7 @@
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
 				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				Dropdown
+				My Products
 			</a>
 			<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 				<a class="dropdown-item" href="{% url 'Grocery' %}">Grocery</a>
@@ -44,8 +48,8 @@
 		</li>
 		
 	
-	<form class="form-inline my-2 my-lg-0">
-		<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+	<form  action = "/search_results" class="form-inline my-2 my-lg-0"  method = "GET"> 
+		<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name = "Search">
 		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 	</form>
 	</ul>

@@ -90,78 +90,37 @@
 
   
     {% for cat, product in list %}
-          {% if cat == 'Foodgrain' or cat == 'DalsandPulses' or cat == 'OilsGheeandMasala' or cat == 'SaltSugarandJaggery' %}
-          <h5><b>{{cat}}</b></h5>
-    <div class = "container">
-      <div class="card-deck" style = "width: 70rem;">
-        {% for i in product %}
-      <div class="card">
+          {% if cat == 'Food Grains' or cat == 'Dals and Pulses' or cat == 'Oils, Ghee and Masalas' or cat == 'Salt, Sugar and Jaggery' %}
+          <div class="text-nowrap bd-highlight">
+            <h4>{{cat}}</h4>
+          </div>
           
-        <img class="card-img-top" src="/media/{{i.image}}" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">{{i.product_name}}</h5>
-            <p class="card-text">Price - ₹ {{i.price}}/kg</p>
-    <a href="{% url 'cart' idz=i.id typer='add' %}" class="btn btn-primary">Add to Cart</a>
-          
-        </div>
-      </div>
+
+    <div class = "container mt-4">
+      <div class="row">
+          {% for i in product %}
+          <div class="col-sm-4">
+              
+              <div class="card-group" >
+              
+              <a href = "#"><img class="card-img-top" src="/media/{{i.image}}" alt="Card image cap"></a>
+              <div class="card-body">
+                  <h5 class="card-title">{{i.product_name}}</h5>
+                  
+              </div>
+            </div>
+          </div>
+          {% if forloop.counter|divisibleby:3 and forloop.counter > 0 and not forloop.last %}
+              </div><div class = "row">
+          {% endif %}
       {% endfor %}
-      <br><br><br>
-    </div>
-    </div>
+              </div>
+          </div>
     {% endif %}
     {% endfor %}
   
   <br><br><br>
-<!--
-  <h4><b>Dals and Pulses</b></h4>
-  <div class = "container">
-    <div class="card-deck" style = "width: 40rem;">
-  {% for i in dalpulses %}
-  
-    <div class="card">
-      <img class="card-img-top" src="/media/{{i.image}}" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">{{i.product_name}}</h5>
-      </div>
-    </div>
-  {% endfor %}
-  </div>
-  </div>
 
-  <br><br><br>
-
-  <h4><b>Oil, Ghee and Masalas</b></h4>
-  <div class = "container">
-    <div class="card-deck" style = "width: 70rem;">
-  {% for i in oilgheemasala %}
-  
-    <div class="card">
-      <img class="card-img-top" src="/media/{{i.image}}" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">{{i.product_name}}</h5>
-      </div>
-    </div>
-  {% endfor %}
-  </div>
-  </div>
-
-  <br><br><br>
-
-  <h4><b>Salt, Sugar and Jaggery</b></h4>
-  <div class = "container">
-    <div class="card-deck" style = "width: 70rem;">
-  {% for i in saltsugjag %}
-  
-    <div class="card">
-      <img class="card-img-top" src="/media/{{i.image}}" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">{{i.product_name}}</h5>
-      </div>
-    </div>
-  {% endfor %}
-  </div>
-  </div>-->
   {% endblock %}
 {% block js %} 
 <script>
