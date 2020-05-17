@@ -13,6 +13,7 @@
         <div class="card-body">
           <h5 class="card-title">{{cart.product_name}}</h5>
             <p class="card-text">Price - ₹ {{cart.price}}/kg</p>
+            <p class="card-text">Quantity - {{cart.quantity}} kg</p>
     <a href="{% url 'cart' idz=cart.product_id typer='delete' %}" class="btn btn-primary">Remove from Cart</a>
 
         </div>
