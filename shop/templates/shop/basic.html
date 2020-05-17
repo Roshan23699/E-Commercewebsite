@@ -14,11 +14,7 @@
 	<title>{% block title %}MyAwesomeCart, Home{% endblock %}</title>
 	<style>{% block css %}{% endblock %}</style>
 </head>
-<style>
-	body {
-	background-color : Azure;
-	}
-</style>
+
 <body>
 	{% load static %}
 	<nav class="navbar navbar-expand-lg navbar-blue bg-dark">
@@ -37,7 +33,7 @@
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
 				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				My Products
+				Dropdown
 			</a>
 			<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 				<a class="dropdown-item" href="{% url 'Grocery' %}">Grocery</a>
@@ -58,14 +54,17 @@
 <!--	</div>-->
 
 		{% if user.is_authenticated %}
-		<div class="nav-item " >
-			<a class="nav-link" href="{% url 'logout' %}">Log out</a>
-		</div>
+
 		<div class="nav-item ">
-			<a class="nav-link" href="{% url 'profile' %}">Profile</a>
+			<a class="nav-link" href="{% url 'profile' %}"><img class="rounded-circle article-img" src="{{ request.user.profile.image.url }}" id="img" style="width:25px;"></a></div>
+<!--		<div class="nav-item ">-->
+<!--			<a class="nav-link" href="{% url 'profile' %}">{{ user.username }}</a>-->
+<!--		</div>-->
+		<div class="nav-item ">
+			<a class="nav-link" href="{% url 'cart' idz=0 typer='none' %}">Cart</a>
 		</div>
-		<div class="nav-item " style = "margin-right:50px;">
-			<a class="nav-link" href="{% url 'cart' idz=0 typer='none' %}">My Cart</a>
+		<div class="nav-item " style = "margin-right:50px;" >
+			<a class="nav-link" href="{% url 'logout' %}">Log out</a>
 		</div>
 		{% else %}
 		<div class="nav-item " >
