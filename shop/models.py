@@ -21,17 +21,3 @@ class SlideShow(models.Model):
 	def __str__(self):
 		return self.image_name
 
-class FoodGrain(Product):
-	pass
-class DalandPulses(Product):
-	pass
-class OilsGheeandMasala(Product):
-	pass
-class SaltSugarandJaggery(Product):
-	pass
-class Fruit(Product):
-	pass
-class Vegetable(Product):
-	pass
-
-
