@@ -1,0 +1,190 @@
+{% extends 'shop/basic.html' %}
+{% block css %}
+          .col-md-3
+          {
+          display: inline-block;
+          margin-left:-4px;
+		  }
+		  
+          .carousel-indicators .active {
+			  background-color: blue;
+            }
+          h4 {
+            margin-left:200px;
+          }
+			
+			.col-md-3 img{
+				
+				width: 255px;
+				height: 355px;
+			}
+			
+			body .carousel-indicator li{
+				background-color: blue;
+			}
+			
+			body .carousel-indicators{
+				bottom: 0;
+			}
+			
+			body .carousel-control-prev-icon,
+			body .carousel-control-next-icon{
+				background-color: blue;
+			}
+			body .no-padding{
+				padding-left: 0,
+				padding-right: 0;
+			}
+			
+			.col-md-3 img {
+				width: 255px;
+				height: 255px;
+      }
+
+      .carousel-inner img {
+        width : 400px;
+        height :320px;
+      }
+      .card-img-top {
+        height:200px;
+      }
+      .carousel-control-next, .carousel-control-prev {
+
+        top : auto;
+        bottom : auto ;
+      }
+      body .carousel-control-prev-icon, body .carousel-control-next-icon {
+        background-color: blue;
+        margin-top: 222px;
+    }
+    
+
+			{% endblock %}
+			
+{% block body %}
+{% load static %}
+<div class = "container mt-5">
+<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+    <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner mb-4">
+    <div class="carousel-item active">
+      <img src='/media/{{slides.0.image}}' class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src='/media/{{slides.1.image}}' class="d-block w-100" alt="...">
+      
+    </div>
+    <div class="carousel-item">
+      <img src='/media/{{slides.2.image}}' class="d-block w-100" alt="...">
+    </div>
+  </div>
+  
+  
+</div>
+</div>
+  <br><br><br>
+
+  
+    {% for cat, product in list %}
+          {% if cat == 'Foodgrain' or cat == 'DalsandPulses' or cat == 'OilsGheeandMasala' or cat == 'SaltSugarandJaggery' %}
+          <h5><b>{{cat}}</b></h5>
+    <div class = "container">
+      <div class="card-deck" style = "width: 70rem;">
+        {% for i in product %}
+      <div class="card">
+          
+        <img class="card-img-top" src="/media/{{i.image}}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{i.product_name}}</h5>
+            <p class="card-text">Price - ₹ {{i.price}}/kg</p>
+    <a href="{% url 'cart' idz=i.id typer='add' %}" class="btn btn-primary">Add to Cart</a>
+          
+        </div>
+      </div>
+      {% endfor %}
+      <br><br><br>
+    </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+  
+  <br><br><br>
+<!--
+  <h4><b>Dals and Pulses</b></h4>
+  <div class = "container">
+    <div class="card-deck" style = "width: 40rem;">
+  {% for i in dalpulses %}
+  
+    <div class="card">
+      <img class="card-img-top" src="/media/{{i.image}}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">{{i.product_name}}</h5>
+      </div>
+    </div>
+  {% endfor %}
+  </div>
+  </div>
+
+  <br><br><br>
+
+  <h4><b>Oil, Ghee and Masalas</b></h4>
+  <div class = "container">
+    <div class="card-deck" style = "width: 70rem;">
+  {% for i in oilgheemasala %}
+  
+    <div class="card">
+      <img class="card-img-top" src="/media/{{i.image}}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">{{i.product_name}}</h5>
+      </div>
+    </div>
+  {% endfor %}
+  </div>
+  </div>
+
+  <br><br><br>
+
+  <h4><b>Salt, Sugar and Jaggery</b></h4>
+  <div class = "container">
+    <div class="card-deck" style = "width: 70rem;">
+  {% for i in saltsugjag %}
+  
+    <div class="card">
+      <img class="card-img-top" src="/media/{{i.image}}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">{{i.product_name}}</h5>
+      </div>
+    </div>
+  {% endfor %}
+  </div>
+  </div>-->
+  {% endblock %}
+{% block js %} 
+<script>
+
+    if(localStorage.getItem('cart') == null) {
+      var cart = {}
+    }
+    else {
+      cart = JSON.parse(localStorage.getItem('cart'));
+    }
+    $('.cart').click(function(){
+      console.log('clicked')
+      var idstr = this.id.toString();
+      console.log(idstr)
+      if(cart[idstr] != undefined) {
+        cart[idstr]++;
+      }
+      else {
+        cart[idstr] = 1;
+      }
+      console.log(cart);
+      localStorage.setItem('cart', JSON.stringify(cart));
+    });
+    
+</script>
+{% endblock %}
