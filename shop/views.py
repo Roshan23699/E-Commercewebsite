@@ -4,6 +4,8 @@ from .models import SlideShow
 from math import ceil
 from .models import Product
 import re
+from users.models import Cart
+from django.contrib.auth.models import User
 # Create your views here.
 
 
@@ -83,10 +85,28 @@ def tracker(request):
 def search(request):
 	return HttpResponse('we are at search')
 
-def productview(request):
-	return HttpResponse('we are at productview')
+def productview(request, cat):
+	product = Product.objects.all()
+	x = '^'
+	x = x + cat
+	print(x)
+	a = []
+	for i in product:
+		if re.search(x, i.category):
+			a.append(i)
+
+	# setx = {item['category'] for item in product}
+	# for ele in setx:
+	# 	element = request.GET[ele]
+	# 	if(element is not None):
+	# 		list1 = Product.objects.filter(element)
+	# 		break
+	
+	return render(request, 'shop/productview.html', {'list':a})
 
 def checkout(request):
-	return HttpResponse('we are at checkout') 
+	
+	return render(request, 'shop/checkout.html')
+	
 
 

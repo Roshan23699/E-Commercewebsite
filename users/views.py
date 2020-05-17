@@ -70,6 +70,7 @@ def cart(request, idz, typer):
         if cart3:
             cart3.delete()
     elif mode == 'none':
+        print('none')
         cart2 = Cart.objects.filter(user=request.user)
         sum1 = 0
         for car in cart2:

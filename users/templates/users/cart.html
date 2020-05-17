@@ -1,4 +1,5 @@
 {% extends 'shop/basic.html' %}
+
 {% block body %}
 
 <h1 style="margin-top:20px; text-align: center;">Cart</h1>
@@ -6,10 +7,12 @@
 <!--      <div class="card-deck" style = "width: 70rem;">-->
     {% if cart1 %}
     <div class="container" >
+      <div class="row">
+        
           {% for cart in cart1 %}
       <div class="card" style="width:250px; margin:50px; float:left;">
 
-        <img class="card-img-top" src="/media/{{cart.image}}" alt="Card image cap" style="width:250px; align:center;">
+        <img class="card-img-top" src="/media/{{cart.image}}" alt="Card image cap" style="width:250px;">
         <div class="card-body">
           <h5 class="card-title">{{cart.product_name}}</h5>
             <p class="card-text">Price - ₹ {{cart.price}}/kg</p>
@@ -18,6 +21,8 @@
 
         </div>
       </div>
+      
+    
           {% endfor %}
     </div>
     {% else %}
@@ -28,7 +33,9 @@
 <!--    </div>-->
 
         <h4 style="margin-top:20px; text-align: center; clear:both;">Total Price: {{ sum }}</h4>
-
+        <div class="col-md-3 col-md-offset-6" style="margin-left:450px">
+          <a href="{% url 'Checkout' %}" class="btn btn-md btn-info my-5">Proceed to Checkout</a>
+        </div>
 
 
 {% endblock %}

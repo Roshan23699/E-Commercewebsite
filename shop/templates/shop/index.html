@@ -100,10 +100,9 @@
       <div class="row">
           {% for i in product %}
           <div class="col-sm-4">
-              
               <div class="card-group" >
               
-              <a href = "#"><img class="card-img-top" src="/media/{{i.image}}" alt="Card image cap"></a>
+              <a href = "productview/{{cat|slice:':3'}}/"><img class="card-img-top" src="/media/{{i.image}}" alt="Card image cap"></a>
               <div class="card-body">
                   <h5 class="card-title">{{i.product_name}}</h5>
                   
