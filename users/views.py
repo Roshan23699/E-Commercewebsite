@@ -5,6 +5,7 @@ from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
 from shop.models import Product
 from users.models import Cart
+from django.http import HttpResponseRedirect
 
 
 def register(request):
@@ -46,22 +47,32 @@ def cart(request, idz, typer):
     mode = str(typer)
     id1 = int(idz)
     if mode == 'add':
-        prod = Product.objects.get(pk=id1)
-        cart1 = Cart()
-        cart1.product_name = prod.product_name
-        cart1.product_id = id1
-        cart1.user = request.user
-        cart1.image = prod.image
-        cart1.price = prod.price
-        cart1.category = prod.category
-        cart1.subcategory = prod.subcategory
-        cart1.save()
+        cart4 = Cart.objects.filter(product_id=id1)
+        if not cart4:
+            prod = Product.objects.get(pk=id1)
+            cart1 = Cart()
+            cart1.product_name = prod.product_name
+            cart1.product_id = id1
+            cart1.user = request.user
+            cart1.image = prod.image
+            cart1.price = prod.price
+            cart1.quantity = 1
+            cart1.category = prod.category
+            cart1.subcategory = prod.subcategory
+            cart1.save()
+        else:
+            cart1 = cart4.first()
+            quan = cart1.quantity
+            quan = quan + 1
+            cart4.update(quantity=quan)
     elif mode == 'delete':
         cart3 = Cart.objects.filter(product_id=id1).first()
         if cart3:
             cart3.delete()
-    cart2 = Cart.objects.filter(user=request.user)
-    sum1 = 0
-    for car in cart2:
-        sum1 = sum1 + car.price
-    return render(request, 'users/cart.html', {'cart1': cart2, 'sum': sum1})
+    elif mode == 'none':
+        cart2 = Cart.objects.filter(user=request.user)
+        sum1 = 0
+        for car in cart2:
+            sum1 = sum1 + car.price * car.quantity
+        return render(request, 'users/cart.html', {'cart1': cart2, 'sum': sum1})
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
