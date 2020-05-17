@@ -5,6 +5,7 @@ from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
 from shop.models import Product
 from users.models import Cart
+from django.http import HttpResponseRedirect
 
 
 def register(request):
@@ -60,8 +61,10 @@ def cart(request, idz, typer):
         cart3 = Cart.objects.filter(product_id=id1).first()
         if cart3:
             cart3.delete()
-    cart2 = Cart.objects.filter(user=request.user)
-    sum1 = 0
-    for car in cart2:
-        sum1 = sum1 + car.price
-    return render(request, 'users/cart.html', {'cart1': cart2, 'sum': sum1})
+    elif mode == 'none':
+        cart2 = Cart.objects.filter(user=request.user)
+        sum1 = 0
+        for car in cart2:
+            sum1 = sum1 + car.price
+        return render(request, 'users/cart.html', {'cart1': cart2, 'sum': sum1})
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
