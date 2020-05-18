@@ -24,7 +24,11 @@
       
     
           {% endfor %}
+
     </div>
+    <h4 style="margin-top:20px; text-align: center; clear:both;">Total Price: {{ sum }}</h4>
+        <div class="col-md-3 col-md-offset-6" style="margin-left:450px">
+          <a href="{% url 'Checkout' %}" class="btn btn-md btn-info my-5">Proceed to Checkout</a>
     {% else %}
         <h4 style="margin-top:20px; text-align: center;">Cart is empty</h4>
     {% endif %}
@@ -32,10 +36,12 @@
 <!--    </div>-->
 <!--    </div>-->
 
-        <h4 style="margin-top:20px; text-align: center; clear:both;">Total Price: {{ sum }}</h4>
-        <div class="col-md-3 col-md-offset-6" style="margin-left:450px">
-          <a href="{% url 'Checkout' %}" class="btn btn-md btn-info my-5">Proceed to Checkout</a>
+        
         </div>
+
+        <script>
+          document.getElementById
+        </script>
 
 
 {% endblock %}
