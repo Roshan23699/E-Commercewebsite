@@ -9,9 +9,7 @@
           .carousel-indicators .active {
 			  background-color: blue;
             }
-          h4 {
-            margin-left:200px;
-          }
+          
 			
 			.col-md-3 img{
 				
@@ -91,7 +89,7 @@
   
     {% for cat, product in list %}
           {% if cat == 'Food Grains' or cat == 'Dals and Pulses' or cat == 'Oils, Ghee and Masalas' or cat == 'Salt, Sugar and Jaggery' %}
-          <div class="text-nowrap bd-highlight">
+          <div class="text-nowrap bd-highlight ml-5 pl-5">
             <h4>{{cat}}</h4>
           </div>
           
@@ -102,7 +100,7 @@
           <div class="col-sm-4">
               <div class="card-group" >
               
-              <a href = "productview/{{cat|slice:':3'}}/"><img class="card-img-top" src="/media/{{i.image}}" alt="Card image cap"></a>
+              <a href = "productview/{{i.product_name}}/"><img class="card-img-top" src="/media/{{i.image}}" alt="Card image cap"></a>
               <div class="card-body">
                   <h5 class="card-title">{{i.product_name}}</h5>
                   

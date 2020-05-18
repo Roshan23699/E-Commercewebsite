@@ -87,12 +87,9 @@ def search(request):
 
 def productview(request, cat):
 	product = Product.objects.all()
-	x = '^'
-	x = x + cat
-	print(x)
 	a = []
 	for i in product:
-		if re.search(x, i.category):
+		if cat == i.category:
 			a.append(i)
 
 	# setx = {item['category'] for item in product}
