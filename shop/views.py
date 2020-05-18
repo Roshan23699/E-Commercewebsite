@@ -6,6 +6,7 @@ from .models import Product
 import re
 from users.models import Cart
 from django.contrib.auth.models import User
+import smtplib 
 # Create your views here.
 
 
@@ -25,7 +26,6 @@ def index(request):
 def grocery(request):
 	#product = Product.objects.all()
 	allProds = []
-	print("HI I am Manish\n\n\n\n\n\n\n\n\n\n\n\n")
 	catx = Product.objects.values('category')
 	cats = {item['category'] for item in catx}
 	for cat in cats:
@@ -104,9 +104,14 @@ def productview(request, cat):
 	
 	return render(request, 'shop/productview.html', {'list':a})
 
+#mail sending after checkout
 def checkout(request):
-	
+
+  
+	s = smtplib.SMTP('smtp.gmail.com', 587)
+	s.starttls() 
+	s.login("myawesomecart@gmail.com", "MyAwesomeCart@123") 
+	message = "Dear " + str(request.user) + ", ordered products will be delivered to you within 2-3 working days. Thank you for using MyAwesomeCart."
+	s.sendmail("myawesomecart@gmail.com", request.user.email, message)   
+	s.quit()
 	return render(request, 'shop/checkout.html')
-	
-
-
