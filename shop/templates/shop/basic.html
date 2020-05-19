@@ -29,23 +29,23 @@
 		  
 		  .overlay-content {
 			position: relative;
-			top: 25%;
+			top: 0%;
 			width: 100%;
 			text-align: center;
-			margin-top: 30px;
+			font-size:0.8rem
 		  }
 		  
 		  .overlay a {
 			padding: 8px;
 			text-decoration: none;
-			font-size: 36px;
+			font-size: 1.5rem;
 			color: #818181;
 			display: block;
 			transition: 0.3s;
 		  }
 		  
 		  .overlay a:hover, .overlay a:focus {
-			color: #f1f1f1;
+			color:black;
 		  }
 		  
 		  .overlay .closebtn {
@@ -76,7 +76,7 @@
 <body>
 	{% load static %}
 	<nav class="navbar navbar-expand-lg bg-dark navbar-inverse navbar-dark">
-		<span style="font-size:30px;cursor:pointer;color:#f1f1f1" onclick="openNav()">&#9776;</span>
+		<span class="m-1" style="font-size:1.5rem;cursor:pointer;color:#f1f1f1" onclick="openNav()">&#9776;</span>
 		<span>&nbsp;</span>
 		<a class="navbar-brand" href="{% url 'shopHome' %}">My Awesome Cart</a>
 		
@@ -142,9 +142,10 @@
 </nav>
 <!-- This is the sidebar portion -->
 
-<div id="myNav" class="overlay">
-	<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+<div id="myNav" class="overlay" style="background:#f1f1f1;color:blue">
+	
 	<div class="overlay-content">
+		<span class="" style="font-size:1.5rem;cursor:pointer;color:black;position:absolute;left:9%;top:5%;" onclick="closeNav()">&#9776;</span>
 	  <a href="#">About</a>
 	  <a href="#">Wishlist</a>
 	  <a href="#">My Orders</a>
@@ -155,7 +156,7 @@
 
 <script>
 function openNav() {
-  document.getElementById("myNav").style.width = "100%";
+  document.getElementById("myNav").style.width = "20%";
 }
 
 function closeNav() {
