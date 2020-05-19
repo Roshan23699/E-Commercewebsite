@@ -4,7 +4,7 @@ from django.contrib import messages
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
 from shop.models import Product
-from users.models import Cart
+from users.models import Cart, Wishlist
 from django.http import HttpResponseRedirect
 
 
@@ -18,7 +18,7 @@ def register(request):
             return redirect('login')
     else:
         forms = UserRegisterForm()
-    return render(request, 'users/register.html', {'form': forms, 'cart':len(Cart.objects.all())})
+    return render(request, 'users/register.html', {'form': forms, 'cart':len(Cart.objects.filter(user=request.user))})
 
 
 @login_required
@@ -38,7 +38,7 @@ def profile(request):
     context = {
         'u_form': u_form,
         'p_form': p_form, 
-        'cart':len(Cart.objects.all())
+        'cart': len(Cart.objects.filter(user=request.user))
     }
     return render(request, 'users/profile.html', context)
 
@@ -48,7 +48,8 @@ def cart(request, idz, typer):
     mode = str(typer)
     id1 = int(idz)
     if mode == 'add':
-        cart4 = Cart.objects.filter(product_id=id1)
+        cart4 = Cart.objects.filter(product_id=id1, user=request.user)
+        wish4 = Wishlist.objects.filter(product_id=id1, user=request.user)
         if not cart4:
             prod = Product.objects.get(pk=id1)
             cart1 = Cart()
@@ -66,6 +67,8 @@ def cart(request, idz, typer):
             quan = cart1.quantity
             quan = quan + 1
             cart4.update(quantity=quan)
+        if wish4:
+            wish4.delete()
     elif mode == 'delete':
         cart3 = Cart.objects.filter(product_id=id1).first()
         if cart3:
@@ -76,5 +79,39 @@ def cart(request, idz, typer):
         sum1 = 0
         for car in cart2:
             sum1 = sum1 + car.price * car.quantity
-        return render(request, 'users/cart.html', {'cart1': cart2, 'sum': sum1, 'cart':len(Cart.objects.all())})
+        return render(request, 'users/cart.html', {'cart1': cart2, 'sum': sum1, 'cart':len(Cart.objects.filter(user=request.user))})
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required
+def wishlist(request, idz, typer):
+    mode = str(typer)
+    id1 = int(idz)
+    if mode == 'add':
+        wishlist4 = Wishlist.objects.filter(product_id=id1, user=request.user)
+        if not wishlist4:
+            prod = Product.objects.get(pk=id1)
+            cart1 = Wishlist()
+            cart1.product_name = prod.product_name
+            cart1.product_id = id1
+            cart1.user = request.user
+            cart1.image = prod.image
+            cart1.price = prod.price
+            cart1.quantity = 1
+            cart1.category = prod.category
+            cart1.subcategory = prod.subcategory
+            cart1.save()
+        else:
+            cart1 = wishlist4.first()
+            quan = cart1.quantity
+            quan = quan + 1
+            wishlist4.update(quantity=quan)
+    elif mode == 'delete':
+        cart3 = Wishlist.objects.filter(product_id=id1).first()
+        if cart3:
+            cart3.delete()
+    elif mode == 'none':
+        print('none')
+        cart2 = Wishlist.objects.filter(user=request.user)
+        return render(request, 'users/wishlist.html', {'cart1': cart2, 'cart':len(Cart.objects.filter(user=request.user))})
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
