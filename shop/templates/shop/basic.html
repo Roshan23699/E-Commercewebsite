@@ -13,7 +13,61 @@
 
 
 	<title>{% block title %}MyAwesomeCart, Home{% endblock %}</title>
-	<style>{% block css %}
+	<style>
+		.overlay {
+			height: 100%;
+			width: 0;
+			position: fixed;
+			z-index: 1;
+			top: 0;
+			left: 0;
+			background-color: rgb(0,0,0);
+			background-color: rgba(0,0,0, 0.9);
+			overflow-x: hidden;
+			transition: 0.5s;
+		  }
+		  
+		  .overlay-content {
+			position: relative;
+			top: 25%;
+			width: 100%;
+			text-align: center;
+			margin-top: 30px;
+		  }
+		  
+		  .overlay a {
+			padding: 8px;
+			text-decoration: none;
+			font-size: 36px;
+			color: #818181;
+			display: block;
+			transition: 0.3s;
+		  }
+		  
+		  .overlay a:hover, .overlay a:focus {
+			color: #f1f1f1;
+		  }
+		  
+		  .overlay .closebtn {
+			position: absolute;
+			top: 20px;
+			right: 45px;
+			font-size: 60px;
+		  }
+		  
+		  @media screen and (max-height: 450px) {
+			.overlay a {font-size: 20px}
+			.overlay .closebtn {
+			font-size: 40px;
+			top: 15px;
+			right: 35px;
+			}
+		  }
+		
+		
+		
+		
+		{% block css %}
 		
 		
 		{% endblock %}</style>
@@ -22,7 +76,10 @@
 <body>
 	{% load static %}
 	<nav class="navbar navbar-expand-lg bg-dark navbar-inverse navbar-dark">
+		<span style="font-size:30px;cursor:pointer;color:#f1f1f1" onclick="openNav()">&#9776;</span>
+		<span>&nbsp;</span>
 		<a class="navbar-brand" href="{% url 'shopHome' %}">My Awesome Cart</a>
+		
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 		aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
@@ -83,6 +140,45 @@
 	
 </div>
 </nav>
+<!-- This is the sidebar portion -->
+
+<div id="myNav" class="overlay">
+	<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+	<div class="overlay-content">
+	  <a href="#">About</a>
+	  <a href="#">Wishlist</a>
+	  <a href="#">My Orders</a>
+	  <a href="#">Contact Us</a>
+	</div>
+  </div>
+  
+
+<script>
+function openNav() {
+  document.getElementById("myNav").style.width = "100%";
+}
+
+function closeNav() {
+  document.getElementById("myNav").style.width = "0%";
+}
+</script>
+
+
+
+
+
+
+
+<!-- sidebar portion en	ds -->
+
+
+
+
+
+
+
+
+
 
 		{% if messages %}
 			<div style="border: 1px solid black; width:50%; margin-left:25%; margin-left:25%; padding:10px; margin-top:20px; background-color: rgba(21, 151, 0, 1); color: rgb(255, 255, 255);">
