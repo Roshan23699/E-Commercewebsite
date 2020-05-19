@@ -111,4 +111,5 @@ def checkout(request):
 	message = "Dear " + str(request.user) + ", ordered products will be delivered to you within 2-3 working days. Thank you for using MyAwesomeCart."
 	s.sendmail("myawesomecart@gmail.com", request.user.email, message)   
 	s.quit()
+	Cart.objects.all().delete()
 	return render(request, 'shop/checkout.html')
