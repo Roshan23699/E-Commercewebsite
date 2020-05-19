@@ -18,7 +18,7 @@ def register(request):
             return redirect('login')
     else:
         forms = UserRegisterForm()
-    return render(request, 'users/register.html', {'form': forms})
+    return render(request, 'users/register.html', {'form': forms, 'cart':len(Cart.objects.all())})
 
 
 @login_required
@@ -37,7 +37,8 @@ def profile(request):
         p_form = ProfileUpdateForm(instance=request.user.profile)
     context = {
         'u_form': u_form,
-        'p_form': p_form
+        'p_form': p_form, 
+        'cart':len(Cart.objects.all())
     }
     return render(request, 'users/profile.html', context)
 
@@ -75,5 +76,5 @@ def cart(request, idz, typer):
         sum1 = 0
         for car in cart2:
             sum1 = sum1 + car.price * car.quantity
-        return render(request, 'users/cart.html', {'cart1': cart2, 'sum': sum1})
+        return render(request, 'users/cart.html', {'cart1': cart2, 'sum': sum1, 'cart':len(Cart.objects.all())})
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

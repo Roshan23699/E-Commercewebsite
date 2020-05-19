@@ -20,7 +20,7 @@ def index(request):
 		allProds.append([cat, product])
 
 	# allProds = [params, params, params]
-	params = {'list' : allProds, 'slides': SlideShow.objects.all()}
+	params = {'list' : allProds, 'slides': SlideShow.objects.all(), 'cart':len(Cart.objects.all())}
 	return render(request, 'shop/index.html', params)
 
 def grocery(request):
@@ -33,7 +33,7 @@ def grocery(request):
 		allProds.append([cat, product])
 
 	# allProds = [params, params, params]
-	params = {'list' : allProds, 'slides': SlideShow.objects.all()}
+	params = {'list' : allProds, 'slides': SlideShow.objects.all(), 'cart':len(Cart.objects.all())}
 	return render(request, 'shop/grocery.html', params)
 
 
@@ -46,7 +46,7 @@ def fruits(request):
 		if cat == 'Fruit':
 			product = Product.objects.filter(category=cat)
 			allProds.append([cat, product])
-			params = {'list' : allProds, 'slides': SlideShow.objects.all()}
+			params = {'list' : allProds, 'slides': SlideShow.objects.all(), 'cart':len(Cart.objects.all())}
 	return render(request, 'shop/fruits.html', params)
 
 def vegetables(request):
@@ -58,7 +58,7 @@ def vegetables(request):
 		if cat == 'vegetables':
 			product = Product.objects.filter(category=cat)
 			allProds.append([cat, product])
-			params = {'list' : allProds, 'slides': SlideShow.objects.all()}
+			params = {'list' : allProds, 'slides': SlideShow.objects.all(), 'cart':len(Cart.objects.all())}
 	return render(request, 'shop/vegetables.html', params)
 
 def search_results(request):
@@ -70,7 +70,7 @@ def search_results(request):
 		if re.search(search, i.product_name, re.IGNORECASE):
 			a.append(i)
 	 
-	params = {'list': a}
+	params = {'list': a, 'cart':len(Cart.objects.all())}
 	return render(request, 'shop/search.html', params)
 
 def about(request):
@@ -99,7 +99,7 @@ def productview(request, cat):
 	# 		list1 = Product.objects.filter(element)
 	# 		break
 	
-	return render(request, 'shop/productview.html', {'list':a})
+	return render(request, 'shop/productview.html', {'list':a, 'cart':len(Cart.objects.all())})
 
 #mail sending after checkout
 def checkout(request):
@@ -112,4 +112,4 @@ def checkout(request):
 	s.sendmail("myawesomecart@gmail.com", request.user.email, message)   
 	s.quit()
 	Cart.objects.all().delete()
-	return render(request, 'shop/checkout.html')
+	return render(request, 'shop/checkout.html', {'cart':len(Cart.objects.all())})

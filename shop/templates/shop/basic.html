@@ -9,16 +9,19 @@
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
 		integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
 
 
 	<title>{% block title %}MyAwesomeCart, Home{% endblock %}</title>
 	<style>{% block css %}
+		
+		
 		{% endblock %}</style>
 </head>
 
 <body>
 	{% load static %}
-	<nav class="navbar navbar-expand-lg bg-dark navbar-inverse">
+	<nav class="navbar navbar-expand-lg bg-dark navbar-inverse navbar-dark">
 		<a class="navbar-brand" href="{% url 'shopHome' %}">My Awesome Cart</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 		aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,17 +65,19 @@
 <!--			<a class="nav-link" href="{% url 'profile' %}">{{ user.username }}</a>-->
 <!--		</div>-->
 		<div class="nav-item ">
-			<a class="nav-link" href="{% url 'cart' idz=0 typer='none' %}">Cart</a>
+			<a class="nav-link btn btn-default btn-sm" style="color:white;font-size:medium"  href="{% url 'cart' idz=0 typer='none' %}">
+				Cart<i class='fas fa-cart-arrow-down'></i>({{cart}})
+			  </a>
 		</div>
 		<div class="nav-item " style = "margin-right:50px;" >
-			<a class="nav-link" href="{% url 'logout' %}">Log out</a>
+			<a class="nav-link" style="color:white" href="{% url 'logout' %}">Log out</a>
 		</div>
 		{% else %}
 		<div class="nav-item " >
-			<a class="nav-link" href="{% url 'login' %}">Log In</a>
+			<a class="nav-link" style="color:white" href="{% url 'login' %}">Log In</a>
 		</div>
 		<div class="nav-item " style = "margin-right:50px;">
-			<a class="nav-link" href="{% url 'register' %}">Register</a>
+			<a class="nav-link" style="color:white" href="{% url 'register' %}">Register</a>
 		</div>
 		{% endif %}
 	
@@ -116,6 +121,7 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
 		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
 		crossorigin="anonymous"></script>
+		<script src='https://kit.fontawesome.com/a076d05399.js'></script>
 </body>
 	{% block js %} {% endblock %}
 </html>
