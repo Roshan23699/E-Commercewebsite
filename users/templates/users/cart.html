@@ -1,0 +1,59 @@
+{% extends 'shop/basic.html' %}
+{% block css %}
+.card-img-top {
+    height:200px;
+  }
+  {% endblock %}
+
+
+{% block body %}
+
+
+<h1 class="text-center mt-5">Cart</h1>
+<!--    <div class = "container">-->
+<!--      <div class="card-deck" style = "width: 70rem;">-->
+    {% if cart1 %}
+    <div class = "container mt-4">
+      <div class="row">
+        
+          {% for cart in cart1 %}
+          <div class="col-sm-4">
+          <div class="card-group" >
+         
+            <img class="card-img-top" src="/media/{{cart.image}}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{cart.product_name}}</h5>
+            <p class="card-text">Price - ₹ {{cart.price}}/kg</p>
+            <p class="card-text">Quantity - {{cart.quantity}} kg</p>
+    <a href="{% url 'cart' idz=cart.product_id typer='delete' %}" class="btn btn-primary">Remove from Cart</a>
+
+        </div>
+      </div>
+      </div>
+      {% if forloop.counter|divisibleby:3 and forloop.counter > 0 and not forloop.last %}
+         </div><div class = "row">
+     {% endif %}
+    
+          {% endfor %}
+          </div>
+
+    </div>
+    <h4 class="text-sm-center mt-5">Total Price: {{ sum }}</h4>
+        <div class="text-sm-center mt-5">
+          <a href="{% url 'Checkout' %}" class="btn btn-md btn-info my-5">Proceed to Checkout</a>
+    {% else %}
+        <h4 style="text-sm-center mt-5">Cart is empty</h4>
+    {% endif %}
+      <br><br><br>
+<!--    </div>-->
+<!--    </div>-->
+
+        
+        </div>
+
+        <script>
+          document.getElementById
+        </script>
+
+
+{% endblock %}

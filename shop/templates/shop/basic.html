@@ -12,12 +12,13 @@
 
 
 	<title>{% block title %}MyAwesomeCart, Home{% endblock %}</title>
-	<style>{% block css %}{% endblock %}</style>
+	<style>{% block css %}
+		{% endblock %}</style>
 </head>
 
 <body>
 	{% load static %}
-	<nav class="navbar navbar-expand-lg navbar-blue bg-dark">
+	<nav class="navbar navbar-expand-lg bg-dark navbar-inverse">
 		<a class="navbar-brand" href="{% url 'shopHome' %}">My Awesome Cart</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 		aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,7 +34,7 @@
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
 				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				Dropdown
+				Categories
 			</a>
 			<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 				<a class="dropdown-item" href="{% url 'Grocery' %}">Grocery</a>
@@ -44,8 +45,8 @@
 		</li>
 		
 	
-	<form class="form-inline my-2 my-lg-0">
-		<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+	<form  action = "/search_results" class="form-inline my-2 my-lg-0"  method = "GET"> 
+		<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name = "Search">
 		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 	</form>
 	</ul>
@@ -54,14 +55,17 @@
 <!--	</div>-->
 
 		{% if user.is_authenticated %}
-		<div class="nav-item " >
-			<a class="nav-link" href="{% url 'logout' %}">Log out</a>
-		</div>
+
 		<div class="nav-item ">
-			<a class="nav-link" href="{% url 'profile' %}">Profile</a>
+			<a class="nav-link" href="{% url 'profile' %}"><img class="rounded-circle article-img" src="{{ request.user.profile.image.url }}" id="img" style="width:25px;"></a></div>
+<!--		<div class="nav-item ">-->
+<!--			<a class="nav-link" href="{% url 'profile' %}">{{ user.username }}</a>-->
+<!--		</div>-->
+		<div class="nav-item ">
+			<a class="nav-link" href="{% url 'cart' idz=0 typer='none' %}">Cart</a>
 		</div>
-		<div class="nav-item " style = "margin-right:50px;">
-			<a class="nav-link" href="#">My Cart</a>
+		<div class="nav-item " style = "margin-right:50px;" >
+			<a class="nav-link" href="{% url 'logout' %}">Log out</a>
 		</div>
 		{% else %}
 		<div class="nav-item " >
@@ -74,12 +78,13 @@
 	
 </div>
 </nav>
-	<div style="border: 1px solid black; width:50%; margin-left:25%; margin-left:25%; padding:10px; margin-top:20px; background-color: rgba(21, 151, 0, 1); color: rgb(255, 255, 255);">
-	{% if messages %}
+
+		{% if messages %}
+			<div style="border: 1px solid black; width:50%; margin-left:25%; margin-left:25%; padding:10px; margin-top:20px; background-color: rgba(21, 151, 0, 1); color: rgb(255, 255, 255);">
                 {% for message in messages %}
                     {{ message }}
-                {% endfor %}
-		{% endif %}</div>
+                {% endfor %}</div>
+		{% endif %}
 
 {% block body %}
 {% endblock %}
