@@ -4,7 +4,7 @@ from django.contrib import messages
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
 from shop.models import Product
-from users.models import Cart, Wishlist
+from users.models import Cart, Wishlist, Orders
 from django.http import HttpResponseRedirect
 
 
@@ -115,3 +115,10 @@ def wishlist(request, idz, typer):
         cart2 = Wishlist.objects.filter(user=request.user)
         return render(request, 'users/wishlist.html', {'cart1': cart2, 'cart':len(Cart.objects.filter(user=request.user))})
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required
+def history(request):
+    orders = Orders.objects.filter(user=request.user)
+    return render(request, 'users/history.html', {'orders': orders})
+

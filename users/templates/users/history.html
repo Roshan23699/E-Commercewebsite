@@ -1,0 +1,52 @@
+{% extends 'shop/basic.html' %}
+{% block css %}
+.card-img-top {
+    height:200px;
+  }
+  {% endblock %}
+
+
+{% block body %}
+
+
+<h1 class="text-center mt-5">History</h1>
+<!--    <div class = "container">-->
+<!--      <div class="card-deck" style = "width: 70rem;">-->
+    {% if orders %}
+    <div class = "container mt-4">
+      <div class="row">
+
+          {% for cart in orders %}
+          <div class="col-sm-4">
+          <div class="card-group" >
+
+            <img class="card-img-top" src="/media/{{cart.image}}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{cart.product_name}}</h5>
+            <p class="card-text">Price - ₹ {{cart.price}}/kg</p>
+            <p class="card-text">Quantity - {{cart.quantity}} kg</p>
+            <p class="card-text">Time Ordered - {{cart.date|time:"H:i"}}</p>
+            <p class="card-text">Date Ordered - {{cart.date|date:"F d, Y"}}</p>
+
+
+
+        </div>
+      </div>
+      </div>
+      {% if forloop.counter|divisibleby:3 and forloop.counter > 0 and not forloop.last %}
+         </div><div class = "row">
+     {% endif %}
+
+          {% endfor %}
+          </div>
+
+    </div>
+    {% endif %}
+
+
+        <script>
+          document.getElementById
+        </script>
+
+
+{% endblock %}
