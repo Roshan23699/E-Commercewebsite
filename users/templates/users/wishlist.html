@@ -39,6 +39,9 @@
           </div>
 
     </div>
+    {% else %}
+    <h4 class="text-sm-center mt-5">Wishlist is empty</h4>
+    <p class="text-sm-center mt-5"><a href = "{% url 'shopHome' %}">Click here to add some products in your wishlist</a></p>
     {% endif %}
 
 

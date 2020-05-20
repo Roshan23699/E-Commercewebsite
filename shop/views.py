@@ -106,7 +106,7 @@ def productview(request, cat):
 	return render(request, 'shop/productview.html', {'list': a, 'cart': len(Cart.objects.filter(user=request.user))})
 
 
-def checkout(request):
+def order(request):
 	s = smtplib.SMTP('smtp.gmail.com', 587)
 	s.starttls() 
 	s.login("myawesomecart@gmail.com", "MyAwesomeCart@123")

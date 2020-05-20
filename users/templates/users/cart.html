@@ -33,16 +33,16 @@
       {% if forloop.counter|divisibleby:3 and forloop.counter > 0 and not forloop.last %}
          </div><div class = "row">
      {% endif %}
-    
+          
           {% endfor %}
           </div>
 
     </div>
     <h4 class="text-sm-center mt-5">Total Price: {{ sum }}</h4>
         <div class="text-sm-center mt-5">
-          <a href="{% url 'Checkout' %}" class="btn btn-md btn-info my-5">Proceed to Checkout</a>
+          <a href="{% url 'order' %}" class="btn btn-md btn-info my-5">Place Order</a>
     {% else %}
-        <h4 style="text-sm-center mt-5">Cart is empty</h4>
+        <h4 class="text-sm-center mt-5">Cart is empty</h4>
     {% endif %}
       <br><br><br>
 <!--    </div>-->

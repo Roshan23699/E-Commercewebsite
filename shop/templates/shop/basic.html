@@ -16,11 +16,11 @@
 	<style>
 		.footer {
 			background:#f1f1f1;
-			position:relative;
 			text-align:center;
+			width:100%;
 			font-weight:bold;
 			color:brown;
-			margin-top:50px;
+			
 		}
 		.overlay {
 			height: 100%;
@@ -161,7 +161,7 @@
 	  <a href="{% url 'AboutUs' %}">About</a>
 	  <a href="{% url 'wishlist' idz=0 typer='none' %}">Wishlist</a>
 	  <a href="{% url 'history'%}">My Orders</a>
-	  <a href="#">Contact Us</a>
+	  <a href="https://node-red-hpdbp.mybluemix.net/ui/">Our Assistant</a>
 	</div>
   </div>
   
@@ -205,7 +205,7 @@ function closeNav() {
 
 
 {% block rest %}{% endblock %}
-<div class="footer">
+<div class="footer fixed-bottom">
 	<p>MyAwesomeCart 2020 &copy;</p>
 </div>
 

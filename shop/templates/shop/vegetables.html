@@ -9,10 +9,10 @@
     
  {% for cat, product in list %}
 
- <div class="text-nowrap bd-highlight ml-5 pl-5">
+ <div class="text-nowrap bd-highlight mt-3">
   <h4>Vegetables</h4>
 </div>
- <div class = "container mt-4">
+ <div class = "container my-5 ">
  <div class="row">
      {% for i in product %}
      <div class="col-sm-4">
@@ -22,9 +22,11 @@
          <img class="card-img-top" src="/media/{{i.image}}" alt="Card image cap">
          <div class="card-body">
              <h5 class="card-title">{{i.product_name}}</h5>
-             <p class="card-text">Price - ₹ {{i.price}}/kg</p>
+             <p class="card-text">Price - ₹ {{i.price}}/kg </p>
+             
              <a href="{% url 'wishlist' idz=i.id typer='add' %}" class="btn btn-primary">Add to Wishlist</a>
              <a href="{% url 'cart' idz=i.id typer='add' %}" class="btn btn-primary">Add to Cart</a>
+             
          </div>
        </div>
      </div>

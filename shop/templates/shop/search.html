@@ -9,7 +9,7 @@
   {% endblock %}
 {% block body %}
 
-<div class = "container mt-4">
+<div class = "container my-4">
 <div class="row">
   {% if not list %}
   <h2>No Search Results</h2>
@@ -24,6 +24,7 @@
             <h5 class="card-title">{{i.product_name}}</h5>
             <p class="card-text">Price - ₹ {{i.price}}/kg</p>
             <a href="{% url 'cart' idz=i.id typer='add' %}" class="btn btn-primary">Add to Cart</a>
+            <a href="{% url 'wishlist' idz=i.id typer='add' %}" class="btn btn-primary">Add to Wishlist</a>
         </div>
       </div>
     </div>
