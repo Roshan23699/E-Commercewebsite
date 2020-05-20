@@ -7,6 +7,7 @@ import re
 from users.models import Cart, Orders, Profile
 from django.contrib.auth.models import User
 import smtplib 
+from email.message import EmailMessage
 # Create your views here.
 
 
@@ -109,6 +110,7 @@ def checkout(request):
 	s = smtplib.SMTP('smtp.gmail.com', 587)
 	s.starttls() 
 	s.login("myawesomecart@gmail.com", "MyAwesomeCart@123")
+	msg = EmailMessage()
 	subject = "Mail regarding your Recent Order"
 	message = "Dear " + str(request.user) + ", ordered products will be delivered to you within 2-3 working days."
 	message = message + "\n"
@@ -144,6 +146,10 @@ def checkout(request):
 	message = message + f"Total Price: {sum1}"
 	message = message + "\n"
 	message = message + " Thank you for using MyAwesomeCart.\n"
-	s.sendmail("myawesomecart@gmail.com", request.user.email, message)
+	msg.set_content(message)
+	msg['Subject'] = subject
+	msg['From'] = "myawesomecart@gmail.com"
+	msg['To'] = request.user.email
+	s.send_message(msg)
 	s.quit()
 	return render(request, 'shop/checkout.html', {'cart':len(Cart.objects.all()), 'list1': list1})
