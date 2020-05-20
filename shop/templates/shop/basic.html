@@ -5,7 +5,7 @@
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+	<link rel="shortcut icon" href="/media/shop/images/favorite-cart.png" type="image/x-icon">
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
 		integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -14,6 +14,14 @@
 
 	<title>{% block title %}MyAwesomeCart, Home{% endblock %}</title>
 	<style>
+		.footer {
+			background:#f1f1f1;
+			position:relative;
+			text-align:center;
+			font-weight:bold;
+			color:brown;
+			margin-top:50px;
+		}
 		.overlay {
 			height: 100%;
 			width: 0;
@@ -147,8 +155,10 @@
 	
 	<div class="overlay-content">
 		<span class="" style="font-size:1.5rem;cursor:pointer;color:#f1f1f1;position:absolute;left:9%;top:5%;" onclick="closeNav()">&#9776;</span>
+		{% if user.is_authenticated %}	
 		<a  href="{% url 'profile' %}"><img class="rounded-circle article-img" src="{{ request.user.profile.image.url }}" id="img" style="width:25px;"><b><small>&nbsp;&nbsp;Hello, {{request.user}}</small></b></a>
-	  <a href="#">About</a>
+		{% endif %}
+	  <a href="{% url 'AboutUs' %}">About</a>
 	  <a href="{% url 'wishlist' idz=0 typer='none' %}">Wishlist</a>
 	  <a href="{% url 'history'%}">My Orders</a>
 	  <a href="#">Contact Us</a>
@@ -192,7 +202,12 @@ function closeNav() {
 
 {% block body %}
 {% endblock %}
+
+
 {% block rest %}{% endblock %}
+<div class="footer">
+	<p>MyAwesomeCart 2020 &copy;</p>
+</div>
 
 
 

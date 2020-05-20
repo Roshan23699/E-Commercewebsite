@@ -122,3 +122,4 @@ def history(request):
     orders = Orders.objects.filter(user=request.user)
     return render(request, 'users/history.html', {'orders': orders})
 
+
