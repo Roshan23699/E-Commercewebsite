@@ -4,7 +4,7 @@ from .models import SlideShow
 from math import ceil
 from .models import Product
 import re
-from users.models import Cart, Orders
+from users.models import Cart, Orders, Profile
 from django.contrib.auth.models import User
 import smtplib 
 # Create your views here.
@@ -108,24 +108,42 @@ def productview(request, cat):
 def checkout(request):
 	s = smtplib.SMTP('smtp.gmail.com', 587)
 	s.starttls() 
-	s.login("myawesomecart@gmail.com", "MyAwesomeCart@123") 
-	message = "Dear " + str(request.user) + ", ordered products will be delivered to you within 2-3 working days. Thank you for using MyAwesomeCart."
-	s.sendmail("myawesomecart@gmail.com", request.user.email, message)   
-	s.quit()
+	s.login("myawesomecart@gmail.com", "MyAwesomeCart@123")
+	subject = "Mail regarding your Recent Order"
+	message = "Dear " + str(request.user) + ", ordered products will be delivered to you within 2-3 working days."
+	message = message + "\n"
+	message = message + "Your Order:"
+	message = message + "\n"
 	cart = Cart.objects.filter(user=request.user)
 	n = len(cart)
 	list1 = []
+	order = Orders()
+	order.user = request.user
+	order.product_name = 'default'
+	sum1 = 0
 	for car in cart:
-		# orderr = Orders(car.proguct_id, request.user, car.quantity, car.category, car.subcategory, car.price, car.image, car.product_name)
 		orderr = Orders()
 		orderr.product_id = car.product_id
 		orderr.user = request.user
 		orderr.quantity = car.quantity
 		orderr.category = car.category
 		orderr.subcategory = car.subcategory
-		orderr.price = car.price
+		orderr.price = car.price * car.quantity
 		orderr.image = car.image
 		orderr.product_name = car.product_name
 		orderr.save()
 		list1.append(orderr)
+		sum1 = sum1 + car.price * car.quantity
+		message = message + f"Product : {orderr.product_name}\tQuantity: {orderr.quantity}\tPrice: {orderr.price}\n"
+	cart.delete()
+	order.price = sum1
+	profile = Profile.objects.filter(user=request.user).first()
+	order.shipped = profile.address
+	order.save()
+	message = message + "\n"
+	message = message + f"Total Price: {sum1}"
+	message = message + "\n"
+	message = message + " Thank you for using MyAwesomeCart.\n"
+	s.sendmail("myawesomecart@gmail.com", request.user.email, message)
+	s.quit()
 	return render(request, 'shop/checkout.html', {'cart':len(Cart.objects.all()), 'list1': list1})

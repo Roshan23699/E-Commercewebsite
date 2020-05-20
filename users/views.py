@@ -4,7 +4,7 @@ from django.contrib import messages
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
 from shop.models import Product
-from users.models import Cart, Wishlist, Orders
+from users.models import Cart, Wishlist, Orders, Profile
 from django.http import HttpResponseRedirect
 
 
