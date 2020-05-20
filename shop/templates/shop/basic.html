@@ -45,7 +45,8 @@
 		  }
 		  
 		  .overlay a:hover, .overlay a:focus {
-			color:black;
+			color:white;
+			text-shadow: red 1rem;
 		  }
 		  
 		  .overlay .closebtn {
@@ -142,10 +143,11 @@
 </nav>
 <!-- This is the sidebar portion -->
 
-<div id="myNav" class="overlay" style="background:#f1f1f1;color:blue">
+<div id="myNav" class="overlay" style="background:black;color:blue">
 	
 	<div class="overlay-content">
-		<span class="" style="font-size:1.5rem;cursor:pointer;color:black;position:absolute;left:9%;top:5%;" onclick="closeNav()">&#9776;</span>
+		<span class="" style="font-size:1.5rem;cursor:pointer;color:#f1f1f1;position:absolute;left:9%;top:5%;" onclick="closeNav()">&#9776;</span>
+		<a  href="{% url 'profile' %}"><img class="rounded-circle article-img" src="{{ request.user.profile.image.url }}" id="img" style="width:25px;"><b><small>&nbsp;&nbsp;Hello, {{request.user}}</small></b></a>
 	  <a href="#">About</a>
 	  <a href="{% url 'wishlist' idz=0 typer='none' %}">Wishlist</a>
 	  <a href="{% url 'history'%}">My Orders</a>
@@ -170,7 +172,7 @@ function closeNav() {
 
 
 
-<!-- sidebar portion en	ds -->
+<!-- sidebar portion ends -->
 
 
 
