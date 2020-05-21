@@ -40,8 +40,13 @@
 
     </div>
     <h4 class="text-sm-center mt-5">Total Price: {{ sum }}</h4>
+    <div class = "lead">
+    <h4 class="text-sm-center mr-5 pr-5 mt-5">Payment Option : <input type="checkbox" name="check" checked>
+      <label for="check">Pay on delivery</label></h4> 
+    </div>
         <div class="text-sm-center mt-5">
-          <a href="{% url 'order' %}" class="btn btn-md btn-info my-5">Place Order</a>
+          
+          <a href="{% url 'order' %}" class="btn btn-success my-5" style = "width : 250px;">Place Order</a>
     {% else %}
         <h4 class="text-sm-center mt-5">Cart is empty</h4>
     {% endif %}

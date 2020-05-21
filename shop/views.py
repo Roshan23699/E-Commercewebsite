@@ -155,7 +155,7 @@ def order(request):
 	s.starttls() 
 	s.login("myawesomecart@gmail.com", "MyAwesomeCart@123")
 	msg = EmailMessage()
-	subject = "Mail regarding your Recent Order"
+	subject = "Your Recent Order"
 	message = "Dear " + str(request.user) + ", ordered products will be delivered to you within 2-3 working days."
 	message = message + "\n"
 	message = message + "Your Order:"
