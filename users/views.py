@@ -6,6 +6,8 @@ from django.contrib.auth.decorators import login_required
 from shop.models import Product
 from users.models import Cart, Wishlist, Orders, Profile
 from django.http import HttpResponseRedirect
+import smtplib
+from email.message import EmailMessage
 
 
 def register(request):
@@ -130,9 +132,31 @@ def history(request):
 @login_required
 def cancel_order(request, idz):
     id1 = int(idz)
-    order = Orders.objects.get(user=request.user, product_id=id1)
+    order = Orders.objects.get(user=request.user, product_id=id1, iscancelled = False)
     order.iscancelled = True
     order.save()
     orders = Orders.objects.filter(user=request.user)
+
+    s = smtplib.SMTP('smtp.gmail.com', 587)
+    s.starttls()
+    s.login("myawesomecart@gmail.com", "MyAwesomeCart@123")
+    msg = EmailMessage()
+    subject = "MyAwesomeCart:Order Cancelled"
+    message = "Dear " + str(request.user) + ", Your Order For the following Products is cancelled: "
+    message = message + "\n"
+    message = message + "Order:"
+    message = message + "\n"
+    message = message + f"Product : {order.product_name}\tQuantity: {order.quantity}\tPrice: {order.price}\n"
+    message = message + '\n'
+    message = message + "Total Price: " + str(order.price)
+    message = message + "\n"
+    message = message + " Thank you for using MyAwesomeCart.\n"
+    msg.set_content(message)
+    msg.set_content(message)
+    msg['Subject'] = subject
+    msg['From'] = "myawesomecart@gmail.com"
+    msg['To'] = request.user.email
+    s.send_message(msg)
+    s.quit()
     return render(request, 'users/history.html', {'orders': orders})
 
