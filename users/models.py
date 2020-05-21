@@ -74,6 +74,7 @@ class Orders(models.Model):
     date = models.DateTimeField(default=timezone.now)
     shipped = models.CharField(max_length=300, default='')
     iscancelled = models.BooleanField(default=False)
+    isdelivered = models.BooleanField(default=False)
     def __str__(self):
         return f"Product: {self.product_name}        User:{self.user}"
 

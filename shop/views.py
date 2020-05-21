@@ -189,7 +189,7 @@ def order(request):
 	message = message + "\n"
 	message = message + f"Total Price: {sum1}"
 	message = message + "\n"
-	message = message + " Thank you for using MyAwesomeCart.\n"
+	message = message + " Thank you for using The Stocked Pantry.\n"
 	msg.set_content(message)
 	msg['Subject'] = subject
 	msg['From'] = "myawesomecart@gmail.com"

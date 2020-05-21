@@ -14,8 +14,6 @@ def register(request):
     carx = None
     if request.user.is_authenticated:
 	    carx = len(Cart.objects.filter(user=request.user))
-	
-
     if request.method == 'POST':
         forms = UserRegisterForm(request.POST)
         if forms.is_valid():
@@ -127,7 +125,16 @@ def wishlist(request, idz, typer):
 @login_required
 def history(request):
     orders = Orders.objects.filter(user=request.user)
+    sum = 0
+    for order in orders:
+        if order.product_name == 'default':
+            order.price = sum
+            sum = 0
+        else:
+            if not order.iscancelled:
+                sum = sum + order.price
     return render(request, 'users/history.html', {'orders': orders})
+
 
 @login_required
 def cancel_order(request, idz):
@@ -141,7 +148,7 @@ def cancel_order(request, idz):
     s.starttls()
     s.login("myawesomecart@gmail.com", "MyAwesomeCart@123")
     msg = EmailMessage()
-    subject = "MyAwesomeCart:Order Cancelled"
+    subject = "The Stocked Pantry:Order Cancelled"
     message = "Dear " + str(request.user) + ", Your Order For the following Products is cancelled: "
     message = message + "\n"
     message = message + "Order:"
@@ -158,5 +165,13 @@ def cancel_order(request, idz):
     msg['To'] = request.user.email
     s.send_message(msg)
     s.quit()
+    sum = 0
+    for order in orders:
+        if order.product_name == 'default':
+            order.price = sum
+            sum = 0
+        else:
+            if not order.iscancelled:
+                sum = sum + order.price
     return render(request, 'users/history.html', {'orders': orders})
 

@@ -23,6 +23,11 @@
             <p><b>Date Ordered - {{cart.date|date:"F d, Y"}}</b></p>
             <p><b>Total Price - ₹ {{cart.price}}</b></p>
             <p><b>Shipped to - {{cart.shipped}}</b></p>
+              {% if cart.isdelivered %}
+                <p style="color:green"><b>The Order has been delivered</b></p>
+              {% else %}
+                <p style="color:red;"><b>The Order is on its way</b></p>
+              {% endif %}
             <br><hr><br>
           </div>
           {% else %}
@@ -40,7 +45,8 @@
             <!-- <a href="cancel_order/{{cart.product_id/" class="btn btn-primary">Cancel Order</a> -->
             {% if cart.iscancelled %}
             <a  class="btn btn-default btn-disabled" style="border-color:#f1f1f1;background:#f1f1f1;font-weight:bold">Order Cancelled</a>
-
+             {% elif cart.isdelivered %}
+            <a  class="btn btn-default btn-disabled" style="border-color:#f1f1f1;background:#f1f1f1;font-weight:bold">Delivered</a>
 
             {% else %}
             <a href="{% url 'cancel_order' idz=cart.product_id %}" class="btn btn-primary">Cancel Order</a>
@@ -63,4 +69,4 @@
         
 
 
-{% endblock %}  
+{% endblock %}

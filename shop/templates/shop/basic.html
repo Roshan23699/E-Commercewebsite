@@ -12,7 +12,7 @@
 		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
 
 
-	<title>{% block title %}MyAwesomeCart, Home{% endblock %}</title>
+	<title>{% block title %}TheStockedPantry, Home{% endblock %}</title>
 	<style>
 		.nav-link {
 			display: inline-block; 
@@ -92,7 +92,7 @@
 	<nav class="navbar navbar-expand-lg bg-dark navbar-inverse navbar-dark">
 		<span class="m-1" style="font-size:1.5rem;cursor:pointer;color:#f1f1f1" onclick="openNav()">&#9776;</span>
 		<span>&nbsp;</span>
-		<a class="navbar-brand" href="{% url 'shopHome' %}">My Awesome Cart</a>
+		<a class="navbar-brand" href="{% url 'shopHome' %}">The Stocked Pantry</a>
 		
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 		aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -113,7 +113,7 @@
 			<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 				<a class="dropdown-item" href="{% url 'Grocery' %}">Grocery</a>
 				<a class="dropdown-item" href="{% url 'Vegetables' %}">Vegetables</a>
-				<div class="dropdown-divider"></div>
+<!--				<div class="dropdown-divider"></div>-->
 				<a class="dropdown-item" href="{% url 'Fruits' %}">Fruits</a>
 			</div>
 		</li>
@@ -131,7 +131,7 @@
 		{% if user.is_authenticated %}
 
 		<div class="nav-item ">
-			<a class="nav-link" href="{% url 'profile' %}"><img class="rounded-circle article-img" src="{{ request.user.profile.image.url }}" id="img" style="width:25px;"></a></div>
+			<a class="nav-link" href="{% url 'profile' %}"><img class="rounded-circle article-img" src="{{ request.user.profile.image.url }}" style="width:25px;"></a></div>
 <!--		<div class="nav-item ">-->
 <!--			<a class="nav-link" href="{% url 'profile' %}">{{ user.username }}</a>-->
 <!--		</div>-->
@@ -161,7 +161,7 @@
 	<div class="overlay-content">
 		<span class="" style="font-size:1.5rem;cursor:pointer;color:#f1f1f1;position:absolute;left:9%;top:5%;" onclick="closeNav()">&#9776;</span>
 		{% if user.is_authenticated %}	
-		<a  href="{% url 'profile' %}"><img class="rounded-circle article-img" src="{{ request.user.profile.image.url }}" id="img" style="width:25px;"><b><small>&nbsp;&nbsp;Hello, {{request.user}}</small></b></a>
+		<a  href="{% url 'profile' %}"><img class="rounded-circle article-img" src="{{ request.user.profile.image.url }}" id="img" style="width:40px;"><b><small>&nbsp; {{request.user}}</small></b></a>
 		{% endif %}
 	  <a href="{% url 'AboutUs' %}">About</a>
 	  <a href="{% url 'wishlist' idz=0 typer='none' %}">Wishlist</a>
@@ -217,7 +217,7 @@ function closeNav() {
 
 {% block rest %}{% endblock %}
 <div class="footer">
-	<p>MyAwesomeCart 2020 &copy;</p>
+	<p>TheStockedPantry 2020 &copy;</p>
 </div>
 
 
