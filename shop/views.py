@@ -20,11 +20,19 @@ def index(request):
 		allProds.append([cat, product])
 
 	# allProds = [params, params, params]
-	params = {'list' : allProds, 'slides': SlideShow.objects.all(), 'cart': len(Cart.objects.filter(user=request.user))}
+	if(request.user.is_authenticated):
+		carx = len(Cart.objects.filter(user=request.user))
+	else : 
+		carx = None
+	params = {'list' : allProds, 'slides': SlideShow.objects.all(), 'cart':carx }
 	return render(request, 'shop/index.html', params)
 
 
 def grocery(request):
+	if(request.user.is_authenticated):
+		carx = len(Cart.objects.filter(user=request.user))
+	else : 
+		carx = None
 	allProds = []
 	catx = Product.objects.values('category')
 	cats = {item['category'] for item in catx}
@@ -33,11 +41,15 @@ def grocery(request):
 		allProds.append([cat, product])
 
 	# allProds = [params, params, params]
-	params = {'list': allProds, 'slides': SlideShow.objects.all(), 'cart': len(Cart.objects.filter(user=request.user))}
+	params = {'list': allProds, 'slides': SlideShow.objects.all(), 'cart': carx}
 	return render(request, 'shop/grocery.html', params)
 
 
 def fruits(request):
+	if(request.user.is_authenticated):
+		carx = len(Cart.objects.filter(user=request.user))
+	else : 
+		carx = None
 	allProds = []
 	catx = Product.objects.values('category')
 	cats = {item['category'] for item in catx}
@@ -45,11 +57,15 @@ def fruits(request):
 		if cat == 'Fruit':
 			product = Product.objects.filter(category=cat)
 			allProds.append([cat, product])
-			params = {'list' : allProds, 'slides': SlideShow.objects.all(), 'cart': len(Cart.objects.filter(user=request.user))}
+			params = {'list' : allProds, 'slides': SlideShow.objects.all(), 'cart': carx}
 	return render(request, 'shop/fruits.html', params)
 
 
 def vegetables(request):
+	if(request.user.is_authenticated):
+		carx = len(Cart.objects.filter(user=request.user))
+	else : 
+		carx = None
 	allProds = []
 	catx = Product.objects.values('category')
 	cats = {item['category'] for item in catx}
@@ -57,11 +73,15 @@ def vegetables(request):
 		if cat == 'vegetables':
 			product = Product.objects.filter(category=cat)
 			allProds.append([cat, product])
-			params = {'list' : allProds, 'slides': SlideShow.objects.all(), 'cart': len(Cart.objects.filter(user=request.user))}
+			params = {'list' : allProds, 'slides': SlideShow.objects.all(), 'cart': carx}
 	return render(request, 'shop/vegetables.html', params)
 
 
 def search_results(request):
+	if(request.user.is_authenticated):
+		carx = len(Cart.objects.filter(user=request.user))
+	else : 
+		carx = None
 	search = request.GET.get('Search', 'default')
 	products = Product.objects.all()
 	a = []
@@ -69,27 +89,47 @@ def search_results(request):
 	for i in products:
 		if re.search(search, i.product_name, re.IGNORECASE):
 			a.append(i)
-	params = {'list': a, 'cart': len(Cart.objects.filter(user=request.user))}
+	params = {'list': a, 'cart': carx}
 	return render(request, 'shop/search.html', params)
 
 
 def about(request):
+	if(request.user.is_authenticated):
+		carx = len(Cart.objects.filter(user=request.user))
+	else : 
+		carx = None
 	return render(request, 'shop/about.html')
 
 
 def contact(request):
+	if(request.user.is_authenticated):
+		carx = len(Cart.objects.filter(user=request.user))
+	else : 
+		carx = None
 	return HttpResponse('we are at contact')
 
 
 def tracker(request):
+	if(request.user.is_authenticated):
+		carx = len(Cart.objects.filter(user=request.user))
+	else : 
+		carx = None
 	return HttpResponse('we are at tracker')
 
 
 def search(request):
+	if(request.user.is_authenticated):
+		carx = len(Cart.objects.filter(user=request.user))
+	else : 
+		carx = None
 	return HttpResponse('we are at search')
 
 
 def productview(request, cat):
+	if(request.user.is_authenticated):
+		carx = len(Cart.objects.filter(user=request.user))
+	else : 
+		carx = None
 	product = Product.objects.all()
 	a = []
 	for i in product:
@@ -103,10 +143,14 @@ def productview(request, cat):
 	# 		list1 = Product.objects.filter(element)
 	# 		break
 	
-	return render(request, 'shop/productview.html', {'list': a, 'cart': len(Cart.objects.filter(user=request.user))})
+	return render(request, 'shop/productview.html', {'list': a, 'cart': carx})
 
 
 def order(request):
+	if(request.user.is_authenticated):
+		carx = len(Cart.objects.filter(user=request.user))
+	else : 
+		carx = None
 	s = smtplib.SMTP('smtp.gmail.com', 587)
 	s.starttls() 
 	s.login("myawesomecart@gmail.com", "MyAwesomeCart@123")

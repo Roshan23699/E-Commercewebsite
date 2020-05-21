@@ -9,6 +9,11 @@ from django.http import HttpResponseRedirect
 
 
 def register(request):
+    carx = None
+    if request.user.is_authenticated:
+	    carx = len(Cart.objects.filter(user=request.user))
+	
+
     if request.method == 'POST':
         forms = UserRegisterForm(request.POST)
         if forms.is_valid():
@@ -18,7 +23,7 @@ def register(request):
             return redirect('login')
     else:
         forms = UserRegisterForm()
-    return render(request, 'users/register.html', {'form': forms, 'cart':len(Cart.objects.filter(user=request.user))})
+    return render(request, 'users/register.html', {'form': forms, 'cart': carx})
 
 
 @login_required
