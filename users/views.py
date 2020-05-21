@@ -127,4 +127,12 @@ def history(request):
     orders = Orders.objects.filter(user=request.user)
     return render(request, 'users/history.html', {'orders': orders})
 
+@login_required
+def cancel_order(request, idz):
+    id1 = int(idz)
+    order = Orders.objects.get(user=request.user, product_id=id1)
+    order.iscancelled = True
+    order.save()
+    orders = Orders.objects.filter(user=request.user)
+    return render(request, 'users/history.html', {'orders': orders})
 

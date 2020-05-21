@@ -37,7 +37,14 @@
           <h5 class="card-title">{{cart.product_name}}</h5>
             <p class="card-text">Total Price - ₹ {{cart.price}}</p>
             <p class="card-text">Quantity - {{cart.quantity}} kg</p>
+            <!-- <a href="cancel_order/{{cart.product_id/" class="btn btn-primary">Cancel Order</a> -->
+            {% if cart.iscancelled %}
+            <a  class="btn btn-default btn-disabled" style="border-color:#f1f1f1;background:#f1f1f1;font-weight:bold">Order Cancelled</a>
 
+
+            {% else %}
+            <a href="{% url 'cancel_order' idz=cart.product_id %}" class="btn btn-primary">Cancel Order</a>
+            {% endif %}
 
 
         </div>
