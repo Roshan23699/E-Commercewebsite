@@ -146,7 +146,7 @@ def cancel_order(request, idz):
 
     s = smtplib.SMTP('smtp.gmail.com', 587)
     s.starttls()
-    s.login("myawesomecart@gmail.com", "MyAwesomeCart@123")
+    s.login("wethestockedpantry@gmail.com", "Thestockedpantry@1234")
     msg = EmailMessage()
     subject = "The Stocked Pantry:Order Cancelled"
     message = "Dear " + str(request.user) + ", Your Order For the following Products is cancelled: "
@@ -157,11 +157,11 @@ def cancel_order(request, idz):
     message = message + '\n'
     message = message + "Total Price: " + str(order.price)
     message = message + "\n"
-    message = message + " Thank you for using MyAwesomeCart.\n"
+    message = message + " Thank you for using Thestockedpantry.\n"
     msg.set_content(message)
     msg.set_content(message)
     msg['Subject'] = subject
-    msg['From'] = "myawesomecart@gmail.com"
+    msg['From'] = "wethestockedpantry@gmail.com"
     msg['To'] = request.user.email
     s.send_message(msg)
     s.quit()

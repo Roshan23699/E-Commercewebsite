@@ -153,7 +153,7 @@ def order(request):
 		carx = None
 	s = smtplib.SMTP('smtp.gmail.com', 587)
 	s.starttls() 
-	s.login("myawesomecart@gmail.com", "MyAwesomeCart@123")
+	s.login("wethestockedpantry@gmail.com", "Thestockedpantry@1234")
 	msg = EmailMessage()
 	subject = "Your Recent Order"
 	message = "Dear " + str(request.user) + ", ordered products will be delivered to you within 2-3 working days."
@@ -192,7 +192,7 @@ def order(request):
 	message = message + " Thank you for using The Stocked Pantry.\n"
 	msg.set_content(message)
 	msg['Subject'] = subject
-	msg['From'] = "myawesomecart@gmail.com"
+	msg['From'] = "wethestockedpantry@gmail.com"
 	msg['To'] = request.user.email
 	s.send_message(msg)
 	s.quit()
